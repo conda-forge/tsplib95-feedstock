@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/tsplib95-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/tsplib95-{{ version }}.tar.gz
   sha256: 3da80175dfb0478b967b87c508f75def47371188b6401b719441f2cedc817e00
 
 build:
@@ -14,15 +14,15 @@ build:
     - tsplib95=tsplib95.cli:cli
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - pytest-runner
     - pip
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - click >=6.0
     - deprecated >=1.2.9
     - networkx >=2.1
@@ -35,6 +35,7 @@ test:
     - tsplib95 --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/rhgrant10/tsplib95
